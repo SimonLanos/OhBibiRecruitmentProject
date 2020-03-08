@@ -22,10 +22,9 @@ public class CharacterEntity : MonoBehaviour
     public void ShootAt(Vector3 targetPosition)
     {
         transform.LookAt(targetPosition);
-        if (projectile != null && Time.time>lastShotTime+coolDown)
+        if (Time.time>lastShotTime+coolDown)
         {
-            Projectile bullet = Instantiate(projectile, transform.position, transform.rotation);
-            bullet.layerMask = opposantLayerMask;
+            ProjectileFactory.Create(opposantLayerMask, transform.position, transform.rotation);
             lastShotTime = Time.time;
         }
     }

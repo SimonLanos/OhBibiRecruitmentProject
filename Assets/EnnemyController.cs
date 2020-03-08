@@ -12,7 +12,7 @@ public class EnnemyController : MonoBehaviour
     }
     void FixedUpdate()
     {
-            character.ShootNearestTarget();
+            //character.ShootNearestTarget();
         character.MoveTowardNearestOpponent();
     }
 }
