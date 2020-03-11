@@ -23,7 +23,7 @@ public class Projectile : MonoBehaviour
             var hitCharacter = hitinfo.transform.GetComponent<CharacterEntity>();
             if (hitCharacter != null)
             {
-                Debug.Log("hit " + hitinfo.transform.name);
+                //Debug.Log("hit " + hitinfo.transform.name);
                 hitCharacter.TakeDamage(damage);
                 ProjectileFactory.Restock(this);
                 return;

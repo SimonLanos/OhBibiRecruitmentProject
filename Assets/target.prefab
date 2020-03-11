@@ -193,7 +193,7 @@ MonoBehaviour:
   opposantLayerMask:
     serializedVersion: 2
     m_Bits: 512
-  speed: 0
+  speed: 5
   coolDown: 1
   projectile: {fileID: 0}
   visionGizmoColor: {r: 1, g: 0.96448624, b: 0, a: 0.15686275}
@@ -209,4 +209,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 925eca2ca75d1ef479bf24457664b4f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  character: {fileID: 0}

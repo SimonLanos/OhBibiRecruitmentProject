@@ -13,6 +13,9 @@ public class CharacterEntity : MonoBehaviour
 
     public Projectile projectile;
 
+    bool moving;
+    Vector3 destination;
+
     public Color visionGizmoColor = Color.cyan;
     public void Shoot(Vector3 direction)
     {
@@ -52,6 +55,27 @@ public class CharacterEntity : MonoBehaviour
         transform.position+=(direction * speed * Time.deltaTime);
     }
 
+    public void MoveToPosition(Vector3 position)
+    {
+        destination = position;
+        moving = true;
+    }
+
+    private void Update()
+    {
+        if (moving)
+        {
+            Vector3 direction = destination - transform.position;
+            float magnitude = direction.magnitude;
+            direction = direction.normalized * Mathf.Clamp01(magnitude);
+            Move(direction);
+            if (magnitude <= 0.1f)
+            {
+                moving = false;
+            }
+        }
+    }
+
     public void MoveTowardNearestOpponent() {
         var targetsInVisionRange = Physics.OverlapSphere(transform.position, visionDistance, opposantLayerMask);
         if (targetsInVisionRange.Length > 0)
@@ -66,6 +90,24 @@ public class CharacterEntity : MonoBehaviour
             }
             Move((targetsInVisionRange[indexOfClosetTarget].transform.position-transform.position).normalized);
         }
+    }
+
+    public float SqrDistanceToNearestOpponent()
+    {
+        var targetsInVisionRange = Physics.OverlapSphere(transform.position, visionDistance, opposantLayerMask);
+        if (targetsInVisionRange.Length > 0)
+        {
+            int indexOfClosetTarget = 0;
+            for (int i = 1; i < targetsInVisionRange.Length; i++)
+            {
+                if ((targetsInVisionRange[i].transform.position - transform.position).sqrMagnitude < (targetsInVisionRange[indexOfClosetTarget].transform.position - transform.position).sqrMagnitude)
+                {
+                    indexOfClosetTarget = i;
+                }
+            }
+            return (targetsInVisionRange[indexOfClosetTarget].transform.position - transform.position).sqrMagnitude;
+        }
+        return float.MaxValue;
     }
 
     public void TakeDamage(int damage)

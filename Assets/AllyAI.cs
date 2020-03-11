@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnnemyController : MonoBehaviour
+public class AllyAI : MonoBehaviour
 {
-    public CharacterEntity character;
+    CharacterEntity character;
 
     private void Start()
     {
@@ -12,7 +12,6 @@ public class EnnemyController : MonoBehaviour
     }
     void FixedUpdate()
     {
-            //character.ShootNearestTarget();
-        character.MoveTowardNearestOpponent();
+        character.ShootNearestTarget();
     }
 }
