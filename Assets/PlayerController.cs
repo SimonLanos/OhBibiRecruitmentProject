@@ -5,7 +5,9 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     static CharacterEntity selectedCharacter;
-
+    static Vector3 originMove;
+    static Vector3 originPostionCamera;
+    public float offsetPower = 1;
 
 
     private void Update()
@@ -25,6 +27,16 @@ public class PlayerController : MonoBehaviour
                 }
                 selectedCharacter = hit.transform.GetComponent<CharacterEntity>();
             }
+
+            originMove = Input.mousePosition;
+            originPostionCamera = Camera.main.transform.position;
+        }
+
+        if (Input.GetMouseButton(0))
+        {
+            Vector3 offset  = (Input.mousePosition - originMove) * offsetPower;
+            offset = new Vector3(offset.x, 0f, offset.y);
+            Camera.main.transform.position = originPostionCamera - offset;
         }
     }
 }

@@ -8,14 +8,18 @@ public class EnnemyFactory : MonoBehaviour
     static List<CharacterEntity> stock = new List<CharacterEntity>();
     public CharacterEntity ennemyPrefab;
 
-    private void Start()
+    private void Awake()
     {
         instance = this;
     }
 
-    public static void Create(LayerMask layerMask, Vector3 position, Quaternion rotation)
+    public static void Create(Vector3 position, Quaternion rotation)
     {
         CharacterEntity ennemy = null;
+        if (stock.Count > 0 && stock[0] == null)
+        {
+            stock.Clear();
+        }
         if (stock.Count > 0)
         {
             ennemy = stock[0];
@@ -26,14 +30,15 @@ public class EnnemyFactory : MonoBehaviour
         }
         else
         {
-            ennemy = Instantiate(instance.ennemyPrefab, position, rotation, instance.transform);
+            ennemy = Instantiate(instance.ennemyPrefab, position, rotation);
         }
-
+        ennemy.health = ennemy.maxHealth;
+        ennemy.MoveToPosition(Vector3.up);
     }
 
-    public static void Restock(Projectile projectile)
+    public static void Restock(CharacterEntity character)
     {
-        projectile.gameObject.SetActive(false);
-        //stock.Add(projectile);
+        character.gameObject.SetActive(false);
+        stock.Add(character);
     }
 }

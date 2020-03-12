@@ -16,6 +16,10 @@ public class ProjectileFactory : MonoBehaviour
     public static void Create(LayerMask layerMask, Vector3 position, Quaternion rotation)
     {
         Projectile projectile = null;
+        if(stock.Count>0 && stock[0] == null)
+        {
+            stock.Clear();
+        }
         if (stock.Count > 0)
         {
             projectile = stock[0];

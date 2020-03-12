@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class EnnemySpawner : MonoBehaviour
 {
-
-    public CharacterEntity ennemyPrefab;
     public Vector3 SpawnExtent;
     public float spawnCoolDown;
     float lastSpawnTime;
@@ -15,7 +13,7 @@ public class EnnemySpawner : MonoBehaviour
     {
         if (Time.time > lastSpawnTime + spawnCoolDown)
         {
-            Instantiate(ennemyPrefab,transform.position+ new Vector3(Random.Range(-SpawnExtent.x, SpawnExtent.x), Random.Range(-SpawnExtent.y, SpawnExtent.y), Random.Range(-SpawnExtent.z, SpawnExtent.z)), Quaternion.identity);
+            EnnemyFactory.Create(transform.position+ new Vector3(Random.Range(-SpawnExtent.x, SpawnExtent.x), Random.Range(-SpawnExtent.y, SpawnExtent.y), Random.Range(-SpawnExtent.z, SpawnExtent.z)), Quaternion.identity);
             lastSpawnTime = Time.time;
         }
     }

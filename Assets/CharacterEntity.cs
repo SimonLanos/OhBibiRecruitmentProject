@@ -1,15 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CharacterEntity : MonoBehaviour
 {
+    public bool isEnnemy = false;
     public int health = 10;
+    public int maxHealth = 10;
     public float visionDistance = 0f;
     public LayerMask opposantLayerMask;
     public float speed;
     public float coolDown = 1f;
     float lastShotTime;
+    public ParticleSystem deathFX;
 
     public Projectile projectile;
 
@@ -115,7 +119,28 @@ public class CharacterEntity : MonoBehaviour
         health -= damage;
         if (health <= 0)
         {
-            Destroy(gameObject);
+            if (deathFX != null)
+            {
+                ParticleSystem fxObject =Instantiate(deathFX, transform.position, Quaternion.Euler(-90,0,0));
+                Destroy(fxObject.gameObject, 2f);
+            }
+            CameraShake.Shake(0.5f);
+            if (isEnnemy)
+            {
+                Score.AddScore(10);
+                EnnemyFactory.Restock(this);
+            }
+            else
+            {
+                AllyAI.numberOfAlliesInGame--;
+                if (AllyAI.numberOfAlliesInGame <= 0)
+                {
+                    Debug.Log("GameOver\n"+Score.score);
+                    Score.ResetScore();
+                    SceneManager.LoadScene(0);
+                }
+                Destroy(gameObject);
+            }
         }
     }
 

@@ -188,13 +188,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a98d479c9b03f6469c4cd99a71af824, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 10
+  isEnnemy: 1
+  health: 1
+  maxHealth: 1
   visionDistance: 15.66
   opposantLayerMask:
     serializedVersion: 2
     m_Bits: 512
-  speed: 5
+  speed: 10
   coolDown: 1
+  deathFX: {fileID: 3787895858743936892, guid: 463952148c4ac8d4eb99686075ccc61c, type: 3}
   projectile: {fileID: 0}
   visionGizmoColor: {r: 1, g: 0.96448624, b: 0, a: 0.15686275}
 --- !u!114 &6137327193935564393
