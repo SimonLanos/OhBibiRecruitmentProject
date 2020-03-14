@@ -660,7 +660,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SpawnExtent: {x: 50, y: 0, z: 50}
-  spawnCoolDown: Infinity
+  spawnCoolDown: 0.1
 --- !u!4 &935209732
 Transform:
   m_ObjectHideFlags: 0
@@ -1808,6 +1808,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   selectedMaterial: {fileID: 2100000, guid: b5b7a8647738cdd4b8c326106f170044, type: 2}
   previousMaterial: {fileID: 0}
+  selectableMask:
+    serializedVersion: 2
+    m_Bits: 2048
 --- !u!1001 &6349278885152749163
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1815,6 +1818,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 80622105711271932, guid: 2d885bd41e6507a4a9867a89397c3bd3,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6349278884900775978, guid: 2d885bd41e6507a4a9867a89397c3bd3,
         type: 3}
       propertyPath: m_Name
