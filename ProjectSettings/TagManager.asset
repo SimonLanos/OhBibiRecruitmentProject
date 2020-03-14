@@ -15,8 +15,8 @@ TagManager:
   - 
   - EnnemyCharacters
   - PlayerCharacters
-  - 
-  - 
+  - Wall
+  - Selectable
   - 
   - 
   - 

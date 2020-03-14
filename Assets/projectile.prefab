@@ -107,9 +107,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 50
-  lifeTime: 3
+  range: 20
   birthtime: 0
   layerMask:
     serializedVersion: 2
     m_Bits: 0
+  wallMask:
+    serializedVersion: 2
+    m_Bits: 1024
   damage: 1

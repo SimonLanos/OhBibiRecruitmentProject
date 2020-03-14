@@ -14,12 +14,12 @@ public class CameraController : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            originMove = Input.mousePosition;
+            originMove = new Vector3(Input.mousePosition.x / Screen.currentResolution.width, Input.mousePosition.y / Screen.currentResolution.height);
             originPostionCamera = transform.position;
         }
         if (Input.GetMouseButton(0))
         {
-            Vector3 offset = (Input.mousePosition - originMove) * offsetPower;
+            Vector3 offset = (new Vector3(Input.mousePosition.x / Screen.currentResolution.width, Input.mousePosition.y / Screen.currentResolution.height) - originMove) * offsetPower;
             offset = new Vector3(offset.x, 0f, offset.y);
             transform.position = originPostionCamera - offset;
         }

@@ -33,7 +33,8 @@ public class EnnemyFactory : MonoBehaviour
             ennemy = Instantiate(instance.ennemyPrefab, position, rotation);
         }
         ennemy.health = ennemy.maxHealth;
-        ennemy.MoveToPosition(Vector3.up);
+        AllyAI[] playerCharacters = FindObjectsOfType<AllyAI>();
+        ennemy.MoveToPosition(playerCharacters[Random.Range(0,playerCharacters.Length)].transform.position);
     }
 
     public static void Restock(CharacterEntity character)

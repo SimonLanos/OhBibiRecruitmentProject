@@ -135,5 +135,17 @@ public class CharacterEntity : MonoBehaviour
     {
         Gizmos.color = visionGizmoColor;
         Gizmos.DrawWireSphere(transform.position, visionDistance);
+
+        Gizmos.color = Color.yellow;
+        if (navMeshAgent != null && navMeshAgent.path != null && navMeshAgent.path.corners.Length>0)
+        {
+            Gizmos.DrawCube(navMeshAgent.destination, Vector3.one);
+            Gizmos.DrawCube(navMeshAgent.path.corners[0], Vector3.one / 2f);
+            for (int i = 1; i< navMeshAgent.path.corners.Length;i++)
+            {
+                Gizmos.DrawLine(navMeshAgent.path.corners[i-1], navMeshAgent.path.corners[i]);
+                Gizmos.DrawCube(navMeshAgent.path.corners[i], Vector3.one/2f);
+            }
+        }
     }
 }
