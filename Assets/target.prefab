@@ -93,6 +93,7 @@ GameObject:
   - component: {fileID: 6137327193935564389}
   - component: {fileID: 6137327193935564392}
   - component: {fileID: 6137327193935564393}
+  - component: {fileID: 3894949943627071019}
   m_Layer: 8
   m_Name: target
   m_TagString: Untagged
@@ -199,6 +200,7 @@ MonoBehaviour:
   coolDown: 1
   deathFX: {fileID: 3787895858743936892, guid: 463952148c4ac8d4eb99686075ccc61c, type: 3}
   projectile: {fileID: 0}
+  navMeshAgent: {fileID: 3894949943627071019}
   visionGizmoColor: {r: 1, g: 0.96448624, b: 0, a: 0.15686275}
 --- !u!114 &6137327193935564393
 MonoBehaviour:
@@ -212,3 +214,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 925eca2ca75d1ef479bf24457664b4f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!195 &3894949943627071019
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6137327193935564390}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 1
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4

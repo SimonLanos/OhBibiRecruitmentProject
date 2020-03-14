@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.SceneManagement;
 
 public class CharacterEntity : MonoBehaviour
@@ -17,9 +18,14 @@ public class CharacterEntity : MonoBehaviour
 
     public Projectile projectile;
 
+    public NavMeshAgent navMeshAgent;
+
     bool moving;
     Vector3 destination;
-
+    private void Start()
+    {
+        navMeshAgent = GetComponent<NavMeshAgent>();
+    }
     public Color visionGizmoColor = Color.cyan;
     public void Shoot(Vector3 direction)
     {
@@ -53,33 +59,12 @@ public class CharacterEntity : MonoBehaviour
             ShootAt(targetsInVisionRange[indexOfClosetTarget].transform.position);
         }
     }
-
-    public void Move(Vector3 direction)
-    {
-        transform.position+=(direction * speed * Time.deltaTime);
-    }
-
+    
     public void MoveToPosition(Vector3 position)
     {
-        destination = position;
-        moving = true;
+        navMeshAgent.SetDestination(position);
     }
-
-    private void Update()
-    {
-        if (moving)
-        {
-            Vector3 direction = destination - transform.position;
-            float magnitude = direction.magnitude;
-            direction = direction.normalized * Mathf.Clamp01(magnitude);
-            Move(direction);
-            if (magnitude <= 0.1f)
-            {
-                moving = false;
-            }
-        }
-    }
-
+    
     public void MoveTowardNearestOpponent() {
         var targetsInVisionRange = Physics.OverlapSphere(transform.position, visionDistance, opposantLayerMask);
         if (targetsInVisionRange.Length > 0)
@@ -92,9 +77,10 @@ public class CharacterEntity : MonoBehaviour
                     indexOfClosetTarget = i;
                 }
             }
-            Move((targetsInVisionRange[indexOfClosetTarget].transform.position-transform.position).normalized);
+            MoveToPosition(targetsInVisionRange[indexOfClosetTarget].transform.position);
         }
     }
+    
 
     public float SqrDistanceToNearestOpponent()
     {

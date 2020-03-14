@@ -13,7 +13,12 @@ public class EnnemySpawner : MonoBehaviour
     {
         if (Time.time > lastSpawnTime + spawnCoolDown)
         {
-            EnnemyFactory.Create(transform.position+ new Vector3(Random.Range(-SpawnExtent.x, SpawnExtent.x), Random.Range(-SpawnExtent.y, SpawnExtent.y), Random.Range(-SpawnExtent.z, SpawnExtent.z)), Quaternion.identity);
+            Vector3 proportionalSpawnPos = new Vector3(Random.Range(0, 2),Random.Range(0, 2), Random.Range(0f, 1f)) * 2f - Vector3.one;
+            if (Random.Range(0, 2) == 0)
+            {
+                proportionalSpawnPos = new Vector3(proportionalSpawnPos.z, proportionalSpawnPos.y, proportionalSpawnPos.x);
+            }
+            EnnemyFactory.Create(transform.position+ Vector3.Scale(proportionalSpawnPos, SpawnExtent), Quaternion.identity);
             lastSpawnTime = Time.time;
         }
     }
