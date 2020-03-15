@@ -20,10 +20,30 @@ public class CharacterEntity : MonoBehaviour
 
     public NavMeshAgent navMeshAgent;
 
+    public GameObject destinationIconPrefab;
+    GameObject destinationIcon;
+    public LineRenderer pathLinePrefab;
+    LineRenderer pathLine;
+
+    bool attack = false;
+    public Vector3 attackOffset;
+    public Vector3 attackExtent;
+
     bool moving;
     Vector3 destination;
     private void Start()
     {
+        if (destinationIconPrefab != null)
+        {
+            destinationIcon = Instantiate(destinationIconPrefab);
+            destinationIcon.name = name + "_destinationIcon";
+            destinationIcon.SetActive(false);
+        }
+        if (pathLinePrefab != null)
+        {
+            pathLine = Instantiate(pathLinePrefab);
+            pathLine.name = name + "_pathLine";
+        }
         navMeshAgent = GetComponent<NavMeshAgent>();
     }
     public Color visionGizmoColor = Color.cyan;
@@ -59,6 +79,41 @@ public class CharacterEntity : MonoBehaviour
             ShootAt(targetsInVisionRange[indexOfClosetTarget].transform.position);
         }
     }
+
+    public void AttackContact()
+    {
+        if (Time.time > lastShotTime + coolDown)
+        {
+            Collider[] colliders = Physics.OverlapBox(transform.position + transform.right * attackOffset.x + transform.up * attackOffset.y + transform.forward * attackOffset.z, attackExtent, transform.rotation, opposantLayerMask);
+            for (int i = 0; i < colliders.Length; i++)
+            {
+                Debug.Break();
+                CharacterEntity hitCharacter = colliders[i].transform.GetComponentInParent<CharacterEntity>();
+                if (hitCharacter != null)
+                {
+                    Debug.Log("hit " + colliders[i].transform.name);
+                    hitCharacter.TakeDamage(1);
+                    Debug.Break();
+                }
+            }
+            attack = true;
+            lastShotTime = Time.time;
+        }
+    }
+
+    public bool AttackContactWillLand()
+    {
+        Collider[] colliders = Physics.OverlapBox(transform.position + transform.right * attackOffset.x + transform.up * attackOffset.y + transform.forward * attackOffset.z, attackExtent, transform.rotation, opposantLayerMask);
+        for (int i = 0; i < colliders.Length; i++)
+        {
+            CharacterEntity hitCharacter = colliders[i].transform.GetComponentInParent<CharacterEntity>();
+            if (hitCharacter != null)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
     
     public void MoveToPosition(Vector3 position)
     {
@@ -80,7 +135,31 @@ public class CharacterEntity : MonoBehaviour
             MoveToPosition(targetsInVisionRange[indexOfClosetTarget].transform.position);
         }
     }
-    
+
+    private void Update()
+    {
+        if (navMeshAgent.hasPath)
+        {
+            if (destinationIcon != null)
+            {
+                destinationIcon.transform.position = navMeshAgent.destination;
+                destinationIcon.SetActive(true);
+            }
+            if (pathLine != null)
+            {
+                pathLine.positionCount = navMeshAgent.path.corners.Length;
+                pathLine.SetPositions(navMeshAgent.path.corners);
+            }
+        }
+        else
+        {
+            if (destinationIcon != null && destinationIcon.activeSelf)
+            {
+                destinationIcon.SetActive(false);
+            }
+        }
+    }
+
 
     public float SqrDistanceToNearestOpponent()
     {
@@ -147,5 +226,13 @@ public class CharacterEntity : MonoBehaviour
                 Gizmos.DrawCube(navMeshAgent.path.corners[i], Vector3.one/2f);
             }
         }
+        Gizmos.matrix = transform.localToWorldMatrix;
+        Gizmos.color = Color.red;
+        if (attack)
+        {
+            Gizmos.DrawCube(attackOffset, attackExtent*2f);
+            attack = false;
+        }
+        Gizmos.DrawWireCube(attackOffset, attackExtent*2f);
     }
 }

@@ -201,6 +201,10 @@ MonoBehaviour:
   deathFX: {fileID: 3787895858743936892, guid: 463952148c4ac8d4eb99686075ccc61c, type: 3}
   projectile: {fileID: 0}
   navMeshAgent: {fileID: 3894949943627071019}
+  destinationIconPrefab: {fileID: 0}
+  pathLinePrefab: {fileID: 0}
+  attackOffset: {x: 0, y: 0, z: 0.9}
+  attackExtent: {x: 1, y: 1, z: 1.5}
   visionGizmoColor: {r: 1, g: 0.96448624, b: 0, a: 0.15686275}
 --- !u!114 &6137327193935564393
 MonoBehaviour:

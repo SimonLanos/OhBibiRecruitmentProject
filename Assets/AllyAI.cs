@@ -12,6 +12,7 @@ public class AllyAI : MonoBehaviour
         numberOfAlliesInGame++;
            character = GetComponent<CharacterEntity>();
     }
+
     void FixedUpdate()
     {
         character.ShootNearestTarget();

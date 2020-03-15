@@ -12,10 +12,9 @@ public class EnnemyAI : MonoBehaviour
     }
     void FixedUpdate()
     {
-        //character.ShootNearestTarget();
-        if (character.SqrDistanceToNearestOpponent() < character.visionDistance* character.visionDistance / 4f)
+        if (character.AttackContactWillLand())
         {
-            character.ShootNearestTarget();
+            character.AttackContact();
         }
         else
         {

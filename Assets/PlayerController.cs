@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviour
 
             if (Physics.Raycast(ray, out hit, selectableMask))
             {
-                Debug.Log("Clicked " + hit.transform.name);
+                //Debug.Log("Clicked " + hit.transform.name);
                 if (selectedCharacter != null)
                 {
                     selectedCharacter.GetComponent<Renderer>().material = previousMaterial;
