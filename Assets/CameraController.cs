@@ -9,6 +9,9 @@ public class CameraController : MonoBehaviour
     public float offsetPower = 0.01f;
     public float zoomSpeed = 1f;
 
+    public Vector3 limitsMin;
+    public Vector3 limitsMax;
+
 
     private void Update()
     {
@@ -24,5 +27,8 @@ public class CameraController : MonoBehaviour
             transform.position = originPostionCamera - offset;
         }
         transform.position += Input.GetAxis("Vertical") * Camera.main.transform.forward * zoomSpeed;
+        transform.position = new Vector3(Mathf.Clamp(transform.position.x, limitsMin.x, limitsMax.x),
+            Mathf.Clamp(transform.position.y, limitsMin.y, limitsMax.y),
+            Mathf.Clamp(transform.position.z, limitsMin.z, limitsMax.z));
     }
 }

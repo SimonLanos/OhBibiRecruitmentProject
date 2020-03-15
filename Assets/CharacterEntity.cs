@@ -87,13 +87,10 @@ public class CharacterEntity : MonoBehaviour
             Collider[] colliders = Physics.OverlapBox(transform.position + transform.right * attackOffset.x + transform.up * attackOffset.y + transform.forward * attackOffset.z, attackExtent, transform.rotation, opposantLayerMask);
             for (int i = 0; i < colliders.Length; i++)
             {
-                Debug.Break();
                 CharacterEntity hitCharacter = colliders[i].transform.GetComponentInParent<CharacterEntity>();
                 if (hitCharacter != null)
                 {
-                    Debug.Log("hit " + colliders[i].transform.name);
                     hitCharacter.TakeDamage(1);
-                    Debug.Break();
                 }
             }
             attack = true;

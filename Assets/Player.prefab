@@ -194,7 +194,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   speed: 0
-  coolDown: 0.1
+  coolDown: 1
   deathFX: {fileID: 0}
   projectile: {fileID: 5785787090857753133, guid: 5ef95a7ee914ea04988b022eb0a1665e,
     type: 3}
