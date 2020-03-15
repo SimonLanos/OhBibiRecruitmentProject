@@ -34,6 +34,7 @@ public class EnnemyFactory : MonoBehaviour
         }
         ennemy.health = ennemy.maxHealth;
         AllyAI[] playerCharacters = FindObjectsOfType<AllyAI>();
+        ennemy.navMeshAgent.Warp(position);
         ennemy.MoveToPosition(playerCharacters[Random.Range(0,playerCharacters.Length)].transform.position);
     }
 
