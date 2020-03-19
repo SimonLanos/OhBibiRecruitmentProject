@@ -4457,6 +4457,9 @@ MonoBehaviour:
   selectableMask:
     serializedVersion: 2
     m_Bits: 2048
+  wallMask:
+    serializedVersion: 2
+    m_Bits: 1024
 --- !u!1 &2093604490
 GameObject:
   m_ObjectHideFlags: 0
