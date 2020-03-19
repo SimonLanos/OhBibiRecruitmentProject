@@ -7,6 +7,8 @@ public class EnnemyFactory : MonoBehaviour
     public static EnnemyFactory instance;
     static List<CharacterEntity> stock = new List<CharacterEntity>();
     public CharacterEntity ennemyPrefab;
+    public int  maxSize = 50;
+    static int instanced = 0;
 
     private void Awake()
     {
@@ -30,17 +32,26 @@ public class EnnemyFactory : MonoBehaviour
         }
         else
         {
-            ennemy = Instantiate(instance.ennemyPrefab, position, rotation);
+            if (instanced < instance.maxSize)
+            {
+                ennemy = Instantiate(instance.ennemyPrefab, position, rotation);
+                instanced++;
+            }
         }
-        ennemy.health = ennemy.maxHealth;
-        CitizenAI[] citizenCharacters = FindObjectsOfType<CitizenAI>();
-        ennemy.navMeshAgent.Warp(position);
-        if (citizenCharacters.Length > 0) { 
-            ennemy.MoveToPosition(citizenCharacters[Random.Range(0, citizenCharacters.Length)].transform.position); }
-        else
+        if (ennemy != null)
         {
-            AllyAI[] playerCharacters = FindObjectsOfType<AllyAI>();
-            ennemy.MoveToPosition(playerCharacters[Random.Range(0, playerCharacters.Length)].transform.position);
+            ennemy.health = ennemy.maxHealth;
+            CitizenAI[] citizenCharacters = FindObjectsOfType<CitizenAI>();
+            ennemy.navMeshAgent.Warp(position);
+            if (citizenCharacters.Length > 0)
+            {
+                ennemy.MoveToPosition(citizenCharacters[Random.Range(0, citizenCharacters.Length)].transform.position);
+            }
+            else
+            {
+                AllyAI[] playerCharacters = FindObjectsOfType<AllyAI>();
+                ennemy.MoveToPosition(playerCharacters[Random.Range(0, playerCharacters.Length)].transform.position);
+            }
         }
     }
 

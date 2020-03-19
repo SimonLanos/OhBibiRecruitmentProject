@@ -9,8 +9,8 @@ public class Bonus : MonoBehaviour
         var entity = other.GetComponent<AllyAI>();
         if (entity != null)
         {
-            Debug.Log("healed");
             entity.GetComponent<CharacterEntity>().health += 5;
+            Score.AddScore(1000);
             Destroy(gameObject);
         }
     }

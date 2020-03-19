@@ -174,7 +174,7 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.5
-  m_Height: 2
+  m_Height: 0
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &6137327193935564392
@@ -190,9 +190,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isEnnemy: 1
-  health: 1
-  maxHealth: 1
-  visionDistance: 15.66
+  isCitizen: 0
+  health: 3
+  maxHealth: 3
+  visionDistance: 10
   opposantLayerMask:
     serializedVersion: 2
     m_Bits: 512
