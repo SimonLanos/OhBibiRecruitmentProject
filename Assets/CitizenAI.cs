@@ -4,15 +4,19 @@ using UnityEngine;
 
 public class CitizenAI : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    static int numberOfCitizens = 0;
+
+    private void Start()
     {
-        
+        numberOfCitizens++;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnDestroy()
     {
-        
+        numberOfCitizens--;
+        if (numberOfCitizens <= 0)
+        {
+            LevelManager.ShowGameOverScreen();
+        }
     }
 }

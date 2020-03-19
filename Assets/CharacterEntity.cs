@@ -200,9 +200,7 @@ public class CharacterEntity : MonoBehaviour
                     AllyAI.numberOfAlliesInGame--;
                     if (AllyAI.numberOfAlliesInGame <= 0)
                     {
-                        Debug.Log("GameOver\n" + Score.score);
-                        Score.ResetScore();
-                        SceneManager.LoadScene(0);
+                        LevelManager.ShowGameOverScreen();
                     }
                 }
                 Destroy(gameObject);
