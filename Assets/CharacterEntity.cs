@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class CharacterEntity : MonoBehaviour
 {
     public bool isEnnemy = false;
+    public bool isCitizen = false;
     public int health = 10;
     public int maxHealth = 10;
     public float visionDistance = 0f;
@@ -192,14 +193,17 @@ public class CharacterEntity : MonoBehaviour
                 Score.AddScore(10);
                 EnnemyFactory.Restock(this);
             }
-            else
+            else 
             {
-                AllyAI.numberOfAlliesInGame--;
-                if (AllyAI.numberOfAlliesInGame <= 0)
+                if (!isCitizen)
                 {
-                    Debug.Log("GameOver\n"+Score.score);
-                    Score.ResetScore();
-                    SceneManager.LoadScene(0);
+                    AllyAI.numberOfAlliesInGame--;
+                    if (AllyAI.numberOfAlliesInGame <= 0)
+                    {
+                        Debug.Log("GameOver\n" + Score.score);
+                        Score.ResetScore();
+                        SceneManager.LoadScene(0);
+                    }
                 }
                 Destroy(gameObject);
             }

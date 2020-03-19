@@ -33,9 +33,15 @@ public class EnnemyFactory : MonoBehaviour
             ennemy = Instantiate(instance.ennemyPrefab, position, rotation);
         }
         ennemy.health = ennemy.maxHealth;
-        AllyAI[] playerCharacters = FindObjectsOfType<AllyAI>();
+        CitizenAI[] citizenCharacters = FindObjectsOfType<CitizenAI>();
         ennemy.navMeshAgent.Warp(position);
-        ennemy.MoveToPosition(playerCharacters[Random.Range(0,playerCharacters.Length)].transform.position);
+        if (citizenCharacters.Length > 0) { 
+            ennemy.MoveToPosition(citizenCharacters[Random.Range(0, citizenCharacters.Length)].transform.position); }
+        else
+        {
+            AllyAI[] playerCharacters = FindObjectsOfType<AllyAI>();
+            ennemy.MoveToPosition(playerCharacters[Random.Range(0, playerCharacters.Length)].transform.position);
+        }
     }
 
     public static void Restock(CharacterEntity character)
