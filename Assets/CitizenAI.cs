@@ -30,13 +30,11 @@ public class CitizenAI : MonoBehaviour
             {
                 yield return null;
             }
-            Debug.Log("<color=red>reached destination</color>");
         }
     }
 
     void SetRandomDestination()
     {
-        Debug.Log("<color=red>go to  destination</color>");
         Vector3 destination = new Vector3(Random.Range(-50f, 50f), 10f, Random.Range(-50f, 50f));
         RaycastHit[] results = new RaycastHit[1];
         Ray ray = new Ray(destination, Vector3.down);

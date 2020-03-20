@@ -36,14 +36,21 @@ public class CharacterEntity : MonoBehaviour
     {
         if (destinationIconPrefab != null)
         {
-            destinationIcon = Instantiate(destinationIconPrefab);
-            destinationIcon.name = name + "_destinationIcon";
+            if (destinationIcon == null)
+            {
+                destinationIcon = Instantiate(destinationIconPrefab);
+                destinationIcon.name = name + "_destinationIcon";
+            }
             destinationIcon.SetActive(false);
         }
         if (pathLinePrefab != null)
         {
-            pathLine = Instantiate(pathLinePrefab);
-            pathLine.name = name + "_pathLine";
+            if (pathLine == null)
+            {
+                pathLine = Instantiate(pathLinePrefab);
+                pathLine.name = name + "_pathLine";
+            }
+            pathLine.gameObject.SetActive(true);
         }
         navMeshAgent = GetComponent<NavMeshAgent>();
     }
@@ -51,6 +58,23 @@ public class CharacterEntity : MonoBehaviour
     public void Shoot(Vector3 direction)
     {
         ShootAt(transform.position + direction);
+    }
+
+    private void FixedUpdate()
+    {
+        NavMeshHit navHit;
+        if (NavMesh.SamplePosition(transform.position, out navHit, 1f, NavMesh.AllAreas))
+        {
+            int mask1 = navHit.mask;
+            int index = 0;
+
+            while ((mask1 >>= 1) > 0)
+            {
+                index++;
+            }
+            float areaCost = NavMesh.GetAreaCost(index);
+            navMeshAgent.speed = speed/areaCost;
+        }
     }
 
     public void ShootAt(Vector3 targetPosition)
@@ -118,7 +142,7 @@ public class CharacterEntity : MonoBehaviour
         navMeshAgent.SetDestination(position);
     }
     
-    public void MoveTowardNearestOpponent() {
+    public bool MoveTowardNearestOpponent() {
         var targetsInVisionRange = Physics.OverlapSphere(transform.position, visionDistance, opposantLayerMask);
         if (targetsInVisionRange.Length > 0)
         {
@@ -131,7 +155,9 @@ public class CharacterEntity : MonoBehaviour
                 }
             }
             MoveToPosition(targetsInVisionRange[indexOfClosetTarget].transform.position);
+            return true;
         }
+        return false;
     }
 
     private void Update()
@@ -156,7 +182,9 @@ public class CharacterEntity : MonoBehaviour
                 destinationIcon.SetActive(false);
             }
         }
+
     }
+
 
 
     public float SqrDistanceToNearestOpponent()
@@ -234,4 +262,29 @@ public class CharacterEntity : MonoBehaviour
         }
         Gizmos.DrawWireCube(attackOffset, attackExtent*2f);
     }
+
+    private void OnDestroy()
+    {
+        if (pathLine)
+        {
+            Destroy(pathLine.gameObject);
+        }
+        if (destinationIcon)
+        {
+            Destroy(destinationIcon.gameObject);
+        }
+    }
+
+    private void OnDisable()
+    {
+        if (pathLine)
+        {
+            pathLine.gameObject.SetActive(false);
+        }
+        if (destinationIcon)
+        {
+            destinationIcon.gameObject.SetActive(false);
+        }
+    }
+
 }

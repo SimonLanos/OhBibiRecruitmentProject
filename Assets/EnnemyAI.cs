@@ -5,6 +5,8 @@ using UnityEngine;
 public class EnnemyAI : MonoBehaviour
 {
     CharacterEntity character;
+    Transform target;
+
 
     private void Start()
     {
@@ -16,9 +18,18 @@ public class EnnemyAI : MonoBehaviour
         {
             character.AttackContact();
         }
-        else
+        else if(!character.MoveTowardNearestOpponent())
         {
-            character.MoveTowardNearestOpponent();
+            if(target == null)
+            {
+                var cble = FindObjectOfType<CitizenAI>();
+                if(cble)
+                target = cble.transform;
+            }
+            if (target != null)
+            {
+                character.MoveToPosition(target.position);
+            }
         }
     }
 }

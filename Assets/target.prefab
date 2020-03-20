@@ -197,7 +197,7 @@ MonoBehaviour:
   opposantLayerMask:
     serializedVersion: 2
     m_Bits: 512
-  speed: 10
+  speed: 4
   coolDown: 1
   deathFX: {fileID: 3787895858743936892, guid: 463952148c4ac8d4eb99686075ccc61c, type: 3}
   projectile: {fileID: 0}

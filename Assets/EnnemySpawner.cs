@@ -38,7 +38,6 @@ public class EnnemySpawner : MonoBehaviour
                 }
                 EnnemyFactory.Create(transform.position + Vector3.Scale(proportionalSpawnPos, SpawnExtent), Quaternion.identity);
             }
-            Debug.Log("spawned " + numberOfEnnemies +" after "+spawnCoolDown);
             spawnCoolDown = Mathf.Lerp(spawnCoolDownRange.y, spawnCoolDownRange.x, (Time.time-startTime)/timeToReachMaxDifficulty);
             lastSpawnTime = Time.time;
         }
