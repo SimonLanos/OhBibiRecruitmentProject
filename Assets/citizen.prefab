@@ -254,6 +254,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00bffe2e00ec0434f8adcc719f158905, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moveCoolDownRange: {x: 0, y: 10}
+  wallMask:
+    serializedVersion: 2
+    m_Bits: 1024
 --- !u!1 &6349278886760271626
 GameObject:
   m_ObjectHideFlags: 0

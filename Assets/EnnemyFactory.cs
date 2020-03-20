@@ -21,6 +21,7 @@ public class EnnemyFactory : MonoBehaviour
         if (stock.Count > 0 && stock[0] == null)
         {
             stock.Clear();
+            instanced = 0;
         }
         if (stock.Count > 0)
         {

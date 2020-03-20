@@ -15,13 +15,11 @@ public class BonusSpawner : MonoBehaviour
     {
         if (Time.time > lastSpawnTime + spawnCoolDown)
         {
-            Debug.Log("try spawn bonus");
             Vector3 spawnPos =Vector3.Scale(new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), Random.Range(-1f, 1f)), SpawnExtent);
             RaycastHit[] results = new RaycastHit[1];
             Ray ray = new Ray(spawnPos, Vector3.down);
             if (Physics.RaycastNonAlloc(ray, results, SpawnExtent.y * 2f, wallMask) > 0)
             {
-                Debug.Log("spawned bonus");
                 Instantiate(bonusPrefab, results[0].point+Vector3.up, Quaternion.identity);
                 lastSpawnTime = Time.time;
             }

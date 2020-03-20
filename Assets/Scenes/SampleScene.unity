@@ -2237,7 +2237,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SpawnExtent: {x: 50, y: 0, z: 50}
+  numberOfENnemiesRange: {x: 5, y: 30}
+  spawnCoolDownRange: {x: 1, y: 15}
   spawnCoolDown: 1
+  timeToReachMaxDifficulty: 90
 --- !u!4 &935209732
 Transform:
   m_ObjectHideFlags: 0
