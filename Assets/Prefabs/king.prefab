@@ -348,7 +348,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isEnnemy: 0
-  isCitizen: 1
   health: 10
   maxHealth: 10
   visionDistance: 50
@@ -357,9 +356,9 @@ MonoBehaviour:
     m_Bits: 256
   speed: 3.5
   coolDown: 1
-  deathFX: {fileID: 0}
   projectile: {fileID: 5785787090857753133, guid: 5ef95a7ee914ea04988b022eb0a1665e,
     type: 3}
+  deathFX: {fileID: 3787895858743936892, guid: 463952148c4ac8d4eb99686075ccc61c, type: 3}
   navMeshAgent: {fileID: 0}
   destinationIconPrefab: {fileID: 2012643246469861974, guid: d8ae9f98c145be640b46cf3129278b5e,
     type: 3}
@@ -368,6 +367,7 @@ MonoBehaviour:
   attackOffset: {x: 0, y: 0, z: 0}
   attackExtent: {x: 0, y: 0, z: 0}
   visionGizmoColor: {r: 0, g: 1, b: 1, a: 0.14117648}
+  selectedColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!195 &5781611271478932586
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -420,6 +420,7 @@ MonoBehaviour:
   wallMask:
     serializedVersion: 2
     m_Bits: 1024
+  moveExtent: {x: 50, y: 10, z: 50}
 --- !u!1 &6349278886760271626
 GameObject:
   m_ObjectHideFlags: 0

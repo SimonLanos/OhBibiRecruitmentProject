@@ -34,6 +34,7 @@ public class CharacterEntity : MonoBehaviour
 
     public Color visionGizmoColor = Color.cyan;
     Color baseColor;
+    public Color selectedColor;
 
     private void Start()
     {
@@ -141,7 +142,7 @@ public class CharacterEntity : MonoBehaviour
 
     public Transform GetClosestTargetTransformInVisionRange()
     {
-        var targetsInVisionRange = Physics.OverlapSphere(transform.position, visionDistance, opposantLayerMask);
+        Collider[] targetsInVisionRange = Physics.OverlapSphere(transform.position, visionDistance, opposantLayerMask);
         if (targetsInVisionRange.Length > 0)
         {
             int indexOfClosestTarget = 0;
@@ -171,7 +172,7 @@ public class CharacterEntity : MonoBehaviour
             //TODO: make betterFactory to prepare for different types of ennemies and to not have to use this unelegant bool
             if (isEnnemy)
             {
-                Score.AddScore(10);
+                Score.AddScore(1);
                 AttackerFactory.Restock(GetComponent<AttackerAI>());
             }
             else 
@@ -207,7 +208,7 @@ public class CharacterEntity : MonoBehaviour
     public void ShowSelection()
     {
         baseColor = GetComponent<Renderer>().material.color;
-        GetComponent<Renderer>().material.color = Color.yellow;
+        GetComponent<Renderer>().material.color = selectedColor;
     }
     public void HideSelection()
     {

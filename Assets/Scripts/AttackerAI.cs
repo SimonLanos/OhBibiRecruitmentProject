@@ -7,6 +7,9 @@ public class AttackerAI : MonoBehaviour
     CharacterEntity character;
     Transform target;
     public float probabilityOfTargetingDefendedUnits = 0.5f;
+    public float updateRate = 1f;
+    float updateOffset;
+    float lastUpdateTime;
 
 
     public void Init(Vector3 position, Quaternion rotation)
@@ -19,6 +22,7 @@ public class AttackerAI : MonoBehaviour
         character.health = character.maxHealth;
         character.navMeshAgent.Warp(position);
         GetRandomTarget();
+        updateOffset = Random.Range(0f, updateRate);
     }
     void FixedUpdate()
     {
@@ -28,10 +32,14 @@ public class AttackerAI : MonoBehaviour
         }
         else
         {
-            Transform closestTarget = character.GetClosestTargetTransformInVisionRange();
-            if (closestTarget != null)
+            if (lastUpdateTime + updateRate + updateOffset < Time.time)
             {
-                target = closestTarget;
+                Transform closestTarget = character.GetClosestTargetTransformInVisionRange();
+                if (closestTarget != null)
+                {
+                    target = closestTarget;
+                }
+                lastUpdateTime = Time.time;
             }
             if(target == null)
             {

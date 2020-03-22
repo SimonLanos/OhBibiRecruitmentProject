@@ -21,12 +21,13 @@ public class DefendedAI : MonoBehaviour
     
     IEnumerator WaitBeforeMovingAgainCoroutine()
     {
+        yield return new WaitForSeconds(10f);
         while (true)
         {
             yield return new WaitForSeconds(Random.Range(moveCoolDownRange.x, moveCoolDownRange.y));
             SetRandomDestination();
             yield return null;
-            while (character.navMeshAgent.hasPath)
+            while ((transform.position-character.navMeshAgent.destination).sqrMagnitude>1f)
             {
                 yield return null;
             }
