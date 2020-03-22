@@ -27,7 +27,7 @@ public class DefendedAI : MonoBehaviour
             yield return new WaitForSeconds(Random.Range(moveCoolDownRange.x, moveCoolDownRange.y));
             SetRandomDestination();
             yield return null;
-            while ((transform.position-character.navMeshAgent.destination).sqrMagnitude>1f)
+            while (character.navMeshAgent.hasPath)
             {
                 yield return null;
             }
